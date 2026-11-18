@@ -138,6 +138,17 @@ streamlit run src/app.py
 
 Open the local URL displayed in the terminal to access the application.
 
+## Application Screenshots
+
+### Heart Disease Prediction
+![Heart Disease Prediction](assets/screenshots/heart_prediction.png)
+
+### Diabetes Prediction
+![Diabetes Prediction](assets/screenshots/diabetes_prediction.png)
+
+### Chronic Kidney Disease Prediction
+![CKD Prediction](assets/screenshots/ckd_prediction.png)
+
 ## Limitations
 
 - The models were developed using publicly available datasets.
