@@ -1,77 +1,164 @@
 # Multiple Disease Risk Prediction System
 
-A machine learning-based web application for predicting disease classification outcomes using health-related measurements.
+A machine learning-based web application that integrates predictive models for Heart Disease, Diabetes, and Chronic Kidney Disease (CKD) into a single interactive platform.
 
-This project was developed as part of a Bachelor of Technology (B.Tech) capstone project in Computer Science and Engineering (Data Science and Analytics).
+Developed as a Bachelor of Technology (B.Tech) capstone project in Computer Science and Engineering (Data Science and Analytics).
 
 ## Project Overview
 
-The Multiple Disease Risk Prediction System integrates three machine learning models into a single interactive Streamlit application:
+The Multiple Disease Risk Prediction System demonstrates the application of machine learning techniques to healthcare-related classification problems.
 
-- **Heart Disease Prediction** — Support Vector Machine (SVM)
-- **Diabetes Prediction** — XGBoost
-- **Chronic Kidney Disease (CKD) Prediction** — Random Forest
+The project integrates three independently developed machine learning models into a unified Streamlit web application, allowing users to enter health-related measurements and obtain model-generated classification results.
 
-The project demonstrates data preprocessing, exploratory analysis, model comparison, cross-validation, model evaluation, and deployment through a web interface.
+### Disease Prediction Modules
+
+| Disease | Selected Machine Learning Model |
+|---|---|
+| Heart Disease | Support Vector Machine (SVM) |
+| Diabetes | XGBoost |
+| Chronic Kidney Disease | Random Forest |
 
 ## Machine Learning Results
 
+The selected models were evaluated using held-out test datasets.
+
 | Disease | Selected Model | Test Accuracy |
-|---|---|---|
+|---|---|---:|
 | Heart Disease | SVM | 77.05% |
 | Diabetes | XGBoost | 97.26% |
 | Chronic Kidney Disease | Random Forest | 100.00% |
 
-These results were obtained on held-out test sets from the respective datasets. They do not establish clinical reliability or generalization to real-world patient populations.
+Additional evaluation metrics included:
+- Precision
+- Recall
+- F1 Score
+- ROC-AUC
+
+**Note:** These results reflect performance on the respective experimental test sets. They do not establish clinical reliability or generalization to real-world patient populations.
+
+## Project Workflow
+
+The project follows a machine learning development workflow:
+
+1. **Data Collection:** Obtaining publicly available datasets for the three prediction tasks.
+2. **Exploratory Data Analysis:** Examining dataset characteristics, feature distributions, missing values, and class distributions.
+3. **Data Preprocessing:** Preparing numerical and categorical features for model training.
+4. **Model Development:** Training and comparing multiple machine learning algorithms.
+5. **Model Evaluation:** Assessing performance using classification metrics and validation techniques.
+6. **Model Integration:** Connecting trained models to a unified Streamlit application.
+7. **Deployment:** Developing an interactive web interface for demonstrating model predictions.
 
 ## Technologies Used
 
+**Programming Language**
 - Python
-- Pandas and NumPy
+
+**Data Analysis and Processing**
+- Pandas
+- NumPy
+
+**Machine Learning**
 - Scikit-learn
 - XGBoost
-- Streamlit
 - Joblib
-- Google Colab
-- Jupyter Notebooks
 
-## Project Structure
+**Application Development**
+- Streamlit
+
+**Development Environment**
+- Google Colab
+- Jupyter Notebook
+- Git and GitHub
+
+## Repository Structure
 
 ```text
 Multiple_disease_risk_prediction/
+│
 ├── assets/
+│
 ├── data/
 │   └── raw/
+│
 ├── models/
-├── notebooks/
+│   ├── ckd_pipeline.pkl
+│   ├── diabetes_preprocessor.pkl
+│   ├── diabetes_xgboost.json
+│   └── heart_disease_pipeline.pkl
+│
 ├── src/
 │   └── app.py
+│
+├── requirements.txt
 ├── .gitignore
 └── README.md
 ```
 
-## Model Development
+## Installation and Execution
 
-Each disease prediction module was developed using a separate dataset and training workflow.
+Follow these steps to run the application locally.
 
-Models were evaluated using classification metrics such as accuracy, precision, recall, F1 score, and ROC-AUC.
+**1. Clone the repository**
 
-Preprocessing and model selection were performed using training data, with separate held-out test sets used for final evaluation.
+```bash
+git clone https://github.com/Abhyudita/-multiple-disease-risk-prediction.git
+```
 
-## Streamlit Application
+**2. Navigate to the project directory**
 
-The application allows users to select one of three disease prediction modules, enter relevant measurements, and view a machine learning classification result.
+```bash
+cd -multiple-disease-risk-prediction
+```
 
-Predicted probabilities represent model outputs rather than clinically validated estimates of disease risk.
+**3. Create a virtual environment (recommended)**
+
+```bash
+python -m venv .venv
+```
+
+**4. Activate the environment**
+
+Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+**5. Install the required dependencies**
+
+```bash
+pip install -r requirements.txt
+```
+
+**6. Run the Streamlit application**
+
+```bash
+streamlit run src/app.py
+```
+
+Open the local URL displayed in the terminal to access the application.
 
 ## Limitations
 
-- Models were developed using publicly available datasets.
-- Performance may differ on independent populations.
-- The CKD dataset contains only 400 records.
-- The models have not undergone external clinical validation.
-- The application is intended for educational and research demonstration purposes only.
+- The models were developed using publicly available datasets.
+- Model performance may vary across different populations and clinical settings.
+- The CKD dataset contains only 400 records, limiting the scope of generalization.
+- The models have not undergone independent external clinical validation.
+- Predictions are statistical model outputs, not clinically validated individual risk estimates.
+- The application is intended strictly for educational and research demonstration purposes.
+
+**Medical Disclaimer:** This application is not a medical diagnostic tool. Its predictions must not be used for medical decisions, diagnosis, or treatment.
 
 ## Contributors
 
-Developed
+- Abhyudita Pandey
+- Nishka Sharma
+- Raghav Sharma
+
+Bachelor of Technology (B.Tech)  
+Computer Science and Engineering – Data Science and Analytics  
+DIT University, Dehradun
+
+---
+
+*This project represents an academic exploration of machine learning applications in healthcare and the integration of predictive models into an interactive web application.*
