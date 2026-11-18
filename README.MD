@@ -1,77 +1,102 @@
 # Multiple Disease Risk Prediction System
 
-A machine learning-based web application for predicting disease classification outcomes using health-related measurements.
+**Final-year B.Tech capstone | DIT University | 2026**
 
-This project was developed as part of a Bachelor of Technology (B.Tech) capstone project in Computer Science and Engineering (Data Science and Analytics).
+A prototype **Streamlit** application bringing together three independent machine-learning modules for **heart disease, diabetes, and chronic kidney disease (CKD)** risk classification. The project compares classification algorithms on public datasets and presents model predictions through a form-based interface.
 
-## Project Overview
+> **Educational prototype only.** This is not a medical device, clinical diagnostic tool, or validated substitute for professional medical advice. Reported test-set results do not establish real-world clinical performance.
 
-The Multiple Disease Risk Prediction System integrates three machine learning models into a single interactive Streamlit application:
+## Project overview
 
-- **Heart Disease Prediction** — Support Vector Machine (SVM)
-- **Diabetes Prediction** — XGBoost
-- **Chronic Kidney Disease (CKD) Prediction** — Random Forest
+- **Three prediction modules:** heart disease, diabetes, CKD
+- **ML methods:** Logistic Regression, Support Vector Machine, Random Forest, XGBoost; the presentation also reports Decision Tree comparisons
+- **Preprocessing:** missing-value handling, duplicate removal, scaling, correlation-informed feature selection, train/test splitting
+- **Evaluation:** accuracy, precision, recall, F1 score, ROC-AUC
+- **Interface:** Python + Streamlit; separate forms and results for each disease
 
-The project demonstrates data preprocessing, exploratory analysis, model comparison, cross-validation, model evaluation, and deployment through a web interface.
+## Reported model comparison
 
-## Machine Learning Results
+These numbers are **transcribed from the capstone presentation**, not independently reproduced by this repository. They should be verified against the original notebooks, dataset versions, preprocessing, and splits before being presented as reproducible benchmarks.
 
-| Disease | Selected Model | Test Accuracy |
-|---|---|---|
-| Heart Disease | SVM | 77.05% |
-| Diabetes | XGBoost | 97.26% |
-| Chronic Kidney Disease | Random Forest | 100.00% |
+| Algorithm | Heart accuracy | Heart recall | Diabetes accuracy | Diabetes recall | Kidney accuracy | Kidney recall |
+|---|---:|---:|---:|---:|---:|---:|
+| Random Forest | 0.8525 | 0.8667 | 0.7338 | 0.8889 | 1.0000 | 1.0000 |
+| Logistic Regression | 0.7705 | 0.8519 | 0.7468 | 0.8704 | 0.9750 | 1.0000 |
+| SVM | 0.7869 | 0.8519 | 0.7273 | 0.8889 | 1.0000 | 1.0000 |
+| XGBoost | 0.7869 | 0.8370 | 0.7338 | 0.8889 | 0.9500 | 0.9400 |
+| Decision Tree | 0.7377 | 0.7377 | 0.7662 | 0.8148 | 0.9875 | 1.0000 |
 
-These results were obtained on held-out test sets from the respective datasets. They do not establish clinical reliability or generalization to real-world patient populations.
+**Interpretation note:** The slides state that model selection prioritised recall, and identify Random Forest, Logistic Regression and XGBoost as selected models, but do not unambiguously map each final model to each disease. The exact saved model per module must be checked in the original code. A reported 1.0 test score on a small dataset is not evidence of clinical reliability; inspect class balance, duplicates, leakage and evaluation protocol.
 
-## Technologies Used
+## Data sources
 
-- Python
-- Pandas and NumPy
-- Scikit-learn
-- XGBoost
-- Streamlit
-- Joblib
-- Google Colab
-- Jupyter Notebooks
+| Module | Source | Records reported in presentation | Features reported |
+|---|---|---:|---:|
+| Heart disease | [Kaggle: johnsmith88/heart-disease-dataset](https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset) | 1,025 | 14 |
+| Diabetes | [Kaggle: iammustafatz/diabetes-prediction-dataset](https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset) | 100,000 | 8 |
+| CKD | [UCI: Chronic Kidney Disease](https://archive.ics.uci.edu/dataset/336/chronic+kidney+disease) | 400 | 24 |
 
-## Project Structure
+**Dataset discrepancy to resolve:** The presentation cites the 100,000-row Kaggle diabetes dataset but lists glucose, insulin, pregnancies, skin thickness and pedigree function, which are associated with a different commonly used diabetes dataset. Check the original CSV and training notebook to establish which diabetes dataset was actually used. Do not upload a substitute and claim it was the training data.
+
+See [`data/README.md`](data/README.md) for provenance, privacy and redistribution guidance.
+
+## Architecture
 
 ```text
-Multiple_disease_risk_prediction/
-├── assets/
-├── data/
-│   └── raw/
-├── models/
-├── notebooks/
-├── src/
-│   └── app.py
-├── .gitignore
-└── README.md
+Streamlit UI → disease selection → feature inputs
+           → preprocessing → disease-specific trained model
+           → risk classification → result display
 ```
 
-## Model Development
+## Repository status
 
-Each disease prediction module was developed using a separate dataset and training workflow.
+**Documentation starter — not yet runnable.** This repository contains a structured README, dataset references, and documentation templates. The original `app.py`, preprocessing/training scripts, fitted model artifacts, exact environment versions and non-sensitive screenshots still need to be added from the original project. **Do not claim a live demo or reproducible training until those files are tested.**
 
-Models were evaluated using classification metrics such as accuracy, precision, recall, F1 score, and ROC-AUC.
+### Planned project layout
 
-Preprocessing and model selection were performed using training data, with separate held-out test sets used for final evaluation.
+```text
+multiple-disease-risk-prediction/
+├── README.md
+├── .gitignore
+├── requirements.txt            # fill with verified dependencies
+├── src/                        # original app and training code
+├── models/                     # fitted artifacts, only if safe to share
+├── data/
+│   ├── README.md
+│   └── raw/                     # data excluded from Git by default
+├── notebooks/                   # original experimentation notebooks
+├── assets/screenshots/         # redacted application screenshots
+└── docs/
+    ├── methodology.md
+    └── reproducibility-checklist.md
+```
 
-## Streamlit Application
+## How to run (after source code is added)
 
-The application allows users to select one of three disease prediction modules, enter relevant measurements, and view a machine learning classification result.
+1. Add and review original source code; identify its actual Streamlit entry point.
+2. Create a virtual environment: `python -m venv .venv`.
+3. Activate it (`.venv\Scripts\activate` on Windows, `source .venv/bin/activate` on macOS/Linux).
+4. Install verified dependencies: `pip install -r requirements.txt`.
+5. Download the **exact** dataset versions used; follow `data/README.md`.
+6. Run the original training script if models must be generated, then run `streamlit run src/app.py` **only if that is the actual entry-point path**.
 
-Predicted probabilities represent model outputs rather than clinically validated estimates of disease risk.
+## Limitations and responsible use
 
-## Limitations
+- Educational proof of concept, not clinically validated.
+- Public medical datasets may be unrepresentative of intended populations.
+- Class imbalance, data leakage and dataset shifts can inflate apparent performance.
+- No real patient data, personal identifiers or secrets should be committed.
+- Do not load untrusted pickle/model files: deserialization can execute code.
 
-- Models were developed using publicly available datasets.
-- Performance may differ on independent populations.
-- The CKD dataset contains only 400 records.
-- The models have not undergone external clinical validation.
-- The application is intended for educational and research demonstration purposes only.
+## Credits
 
-## Contributors
+**Team capstone:** Abhyudita Pandey, Nishka Sharma and Raghav Sharma (Group BTCSE-100). **Project advisor:** Dr. Biswadip Bandyopadhyay, DIT University. Contributions to code and documentation should be attributed accurately after checking with the team.
 
-Developed
+## Sources
+
+- Final-year capstone report (2026), *Multiple Disease Risk Prediction System*
+- End-term capstone presentation (2026), *Multiple Disease Risk Prediction System*
+
+## License
+
+No software license has been selected yet. Confirm ownership and agreement of all contributors before choosing one; dataset licenses are separate.
